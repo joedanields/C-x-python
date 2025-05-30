@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deposit Amount</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #43cea2, #185a9d);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      width: 400px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 600;
+    }
+    input {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1.2rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background-color: #185a9d;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #1271c8;
+    }
+    .messages {
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      border-radius: 6px;
+      text-align: left;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #842029;
+    }
+    .success {
+      background-color: #d1e7dd;
+      color: #0f5132;
+    }
+    .logout {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .logout a {
+      color: #185a9d;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Deposit Amount</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="messages {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('deposit') }}" method="POST">
+      <label for="cardnumber">Card Number</label>
+      <input type="text" id="cardnumber" name="cardnumber" placeholder="Enter your 16-digit card number" pattern="\d{16}" maxlength="16" required />
+
+      <label for="pin">PIN</label>
+      <input type="password" id="pin" name="pin" placeholder="Enter your 4-digit PIN" pattern="\d{4}" maxlength="4" required />
+
+      <label for="amount">Deposit Amount</label>
+      <input type="number" id="amount" name="amount" placeholder="Enter amount to deposit" min="1" required />
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="logout">
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+
+</body>
+</html>
