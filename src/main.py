@@ -9,9 +9,9 @@ users = {}
 @app.route('/')
 def home():
     if 'user' in session:
-        return redirect(url_for('deposit'))
-    else:
         return redirect(url_for('login'))
+    else:
+        return redirect(url_for('create_account'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
